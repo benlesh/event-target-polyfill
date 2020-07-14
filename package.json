@@ -1,5 +1,5 @@
 {
-  "name": "@benlesh/event-target-polyfill",
+  "name": "event-target-polyfill",
   "version": "0.0.1",
   "description": "An EventTarget Polyfill",
   "type": "module",
