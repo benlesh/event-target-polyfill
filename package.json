@@ -1,0 +1,29 @@
+{
+  "name": "@benlesh/event-target-polyfill",
+  "version": "0.0.1",
+  "description": "An EventTarget Polyfill",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benlesh/event-target-polyfill.git"
+  },
+  "keywords": [
+    "EventTarget",
+    "Polyfill"
+  ],
+  "author": "Ben Lesh <ben@benlesh.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benlesh/event-target-polyfill/issues"
+  },
+  "homepage": "https://github.com/benlesh/event-target-polyfill#readme"
+}
