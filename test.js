@@ -1,4 +1,4 @@
-import "./index.js";
+require('./index.js');
 
 if (typeof EventTarget === "undefined") {
   fail("EventTarget does not exist");
