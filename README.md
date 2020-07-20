@@ -1,4 +1,5 @@
 [![npm version](https://badge.fury.io/js/event-target-polyfill.svg)](https://badge.fury.io/js/event-target-polyfill)
+![Node.js CI](https://github.com/benlesh/event-target-polyfill/workflows/Node.js%20CI/badge.svg)
 
 # event-target-polyfill
 
