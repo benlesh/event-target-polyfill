@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/event-target-polyfill.svg)](https://badge.fury.io/js/event-target-polyfill)
+
 # event-target-polyfill
 
 A polyfill for `EventTarget` (and `Event`), meant to run in older version of node or possibly IE 11, that has the most accurate set of characteristics of `EventTarget` that can be provided.
