@@ -3,7 +3,7 @@ const root =
   (typeof self !== "undefined" && self) ||
   (typeof global !== "undefined" && global);
 
-if (typeof root.Event === "undefined") {
+if (typeof root.Event === "undefined" || typeof root.Event === "object") {
   root.Event = (function () {
     function Event(type, options) {
       if (options) {
