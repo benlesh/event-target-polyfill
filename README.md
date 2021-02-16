@@ -13,7 +13,7 @@ MDN: [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
 ## Usage
 
 ```
-import '@benlesh/event-target-polyfill';
+import 'event-target-polyfill';
 
 const et = new EventTarget();
 
