@@ -7,7 +7,7 @@ if (typeof root.Event === "undefined") {
   root.Event = (function () {
     function Event(type, options) {
       if (options) {
-        for (let key of options) {
+        for (let key in options) {
           if (options.hasOwnProperty(key)) {
             this[key] = options[key];
           }
