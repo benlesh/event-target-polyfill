@@ -20,7 +20,7 @@ if (typeof root.Event === "undefined") {
   })();
 }
 
-if (typeof root.EventTarget === "undefined") {
+if (typeof root.EventTarget === "undefined" || !(function () { try { return new EventTarget() } catch { return 0 } }())) {
   root.EventTarget = (function () {
     function EventTarget() {
       this.__listeners = new Map();
