@@ -1,6 +1,6 @@
 {
   "name": "event-target-polyfill",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An EventTarget Polyfill",
   "main": "index.js",
   "exports": {
