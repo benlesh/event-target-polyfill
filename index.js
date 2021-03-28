@@ -3,16 +3,21 @@ const root =
   (typeof self !== "undefined" && self) ||
   (typeof global !== "undefined" && global);
 
-if (typeof root.Event === "undefined") {
+function isConstructor(fn) {
+  try {
+    new fn();
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
+
+if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
   root.Event = (function () {
     function Event(type, options) {
-      if (options) {
-        for (let key of options) {
-          if (options.hasOwnProperty(key)) {
-            this[key] = options[key];
-          }
-        }
-      }
+        this.bubbles = !!options && !!options.bubbles;
+        this.cancelable = !!options && !!options.cancelable;
+        this.composed = !!options && !!options.composed;
       this.type = type;
     }
 
@@ -20,7 +25,7 @@ if (typeof root.Event === "undefined") {
   })();
 }
 
-if (typeof root.EventTarget === "undefined") {
+if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
   root.EventTarget = (function () {
     function EventTarget() {
       this.__listeners = new Map();
