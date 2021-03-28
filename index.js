@@ -3,7 +3,16 @@ const root =
   (typeof self !== "undefined" && self) ||
   (typeof global !== "undefined" && global);
 
-if (typeof root.Event === "undefined") {
+function isConstructor(fn) {
+  try {
+    new fn();
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
+
+if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
   root.Event = (function () {
     function Event(type, options) {
       if (options) {
@@ -20,7 +29,7 @@ if (typeof root.Event === "undefined") {
   })();
 }
 
-if (typeof root.EventTarget === "undefined") {
+if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
   root.EventTarget = (function () {
     function EventTarget() {
       this.__listeners = new Map();

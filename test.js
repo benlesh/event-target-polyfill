@@ -1,10 +1,30 @@
-require('./index.js');
+{
+  // We need to check to make sure we don't already have EventTarget
+  // in our testing environment. If we do, the tests don't matter.
+  // so it needs to fail in that case.
+  let eventTargetAlreadyPresent = true;
+  try {
+    new EventTarget();
+  } catch (err) {
+    // Expected this to error, this is good
+    eventTargetAlreadyPresent = false;
+  }
 
-if (typeof EventTarget === "undefined") {
+  if (eventTargetAlreadyPresent) {
+    fail(
+      "EventTarget existed before tests, tests are irrelevant in this environment."
+    );
+  }
+}
+
+// Now we pull it in.
+require("./index.js");
+
+if (typeof EventTarget !== "function") {
   fail("EventTarget does not exist");
 }
 
-if (typeof Event === "undefined") {
+if (typeof Event !== "function") {
   fail("Event does not exist");
 }
 
@@ -30,77 +50,78 @@ if (typeof Event === "undefined") {
 }
 
 {
-    // adding and removing event listeners should work
+  // adding and removing event listeners should work
 
-    let handlerCalls = 0;
-    const handler = () => handlerCalls++;
-    const listener = {
-        handleEvent() {
-            this.calls++;
-        },
-        calls: 0
-    };
+  let handlerCalls = 0;
+  const handler = () => handlerCalls++;
+  const listener = {
+    handleEvent() {
+      this.calls++;
+    },
+    calls: 0,
+  };
 
-    const et = new EventTarget();
-    
-    et.addEventListener('registration', handler);
-    et.addEventListener('registration', listener);
+  const et = new EventTarget();
 
-    et.dispatchEvent(new Event('registration'));
-    et.dispatchEvent(new Event('registration'));
+  et.addEventListener("registration", handler);
+  et.addEventListener("registration", listener);
 
-    if (listener.calls !== 2) {
-        fail(`Expected 2 calls to listener.handleEvent, got ${listener.calls}.`);
-    }
-    if (handlerCalls !== 2) {
-        fail(`Expected 2 calls to handler, got ${handlerCalls}.`);
-    }
+  et.dispatchEvent(new Event("registration"));
+  et.dispatchEvent(new Event("registration"));
 
-    et.removeEventListener('registration', handler);
+  if (listener.calls !== 2) {
+    fail(`Expected 2 calls to listener.handleEvent, got ${listener.calls}.`);
+  }
+  if (handlerCalls !== 2) {
+    fail(`Expected 2 calls to handler, got ${handlerCalls}.`);
+  }
 
-    et.dispatchEvent(new Event('registration'));
-    et.dispatchEvent(new Event('registration'));
+  et.removeEventListener("registration", handler);
 
-    if (listener.calls !== 4) {
-        fail(`Expected 4 calls to listener.handleEvent, got ${listener.calls}.`);
-    }
-    if (handlerCalls !== 2) {
-        fail(`Expected 2 calls to handler, got ${handlerCalls}.`);
-    }
+  et.dispatchEvent(new Event("registration"));
+  et.dispatchEvent(new Event("registration"));
 
-    et.removeEventListener('registration', listener);
-    et.dispatchEvent(new Event('registration'));
-    et.dispatchEvent(new Event('registration'));
+  if (listener.calls !== 4) {
+    fail(`Expected 4 calls to listener.handleEvent, got ${listener.calls}.`);
+  }
+  if (handlerCalls !== 2) {
+    fail(`Expected 2 calls to handler, got ${handlerCalls}.`);
+  }
 
-    if (listener.calls !== 4) {
-        fail(`Expected 4 calls to listener.handleEvent, got ${listener.calls}.`);
-    }
-    if (handlerCalls !== 2) {
-        fail(`Expected 2 calls to handler, got ${handlerCalls}.`);
-    }
+  et.removeEventListener("registration", listener);
+  et.dispatchEvent(new Event("registration"));
+  et.dispatchEvent(new Event("registration"));
+
+  if (listener.calls !== 4) {
+    fail(`Expected 4 calls to listener.handleEvent, got ${listener.calls}.`);
+  }
+  if (handlerCalls !== 2) {
+    fail(`Expected 2 calls to handler, got ${handlerCalls}.`);
+  }
 }
 
 {
-    // Registering the same handler more than once should be idempotent
-    const et = new EventTarget();
+  // Registering the same handler more than once should be idempotent
+  const et = new EventTarget();
 
-    let handlerCalls = 0;
-    const handler = () => {
-        handlerCalls++;
-    };
+  let handlerCalls = 0;
+  const handler = () => {
+    handlerCalls++;
+  };
 
-    et.addEventListener('idem', handler);
-    et.addEventListener('idem', handler, { once: true });
-    et.addEventListener('idem', handler);
-    et.addEventListener('idem', handler);
+  et.addEventListener("idem", handler);
+  et.addEventListener("idem", handler, { once: true });
+  et.addEventListener("idem", handler);
+  et.addEventListener("idem", handler);
 
-    et.dispatchEvent(new Event('idem'));
-    
-    if (handlerCalls !== 1) {
-        fail(`Expected handler to have been called once. Was called ${handlerCalls} times`);
-    }
+  et.dispatchEvent(new Event("idem"));
+
+  if (handlerCalls !== 1) {
+    fail(
+      `Expected handler to have been called once. Was called ${handlerCalls} times`
+    );
+  }
 }
-
 
 {
   // Should handle registration of listeners that only fire once
@@ -126,10 +147,10 @@ if (typeof Event === "undefined") {
 }
 
 {
-    // addEventListener Should not throw if boolean is passed as the third argument
-    const et = new EventTarget();
+  // addEventListener Should not throw if boolean is passed as the third argument
+  const et = new EventTarget();
 
-    et.addEventListener('test', function () { }, true);
+  et.addEventListener("test", function () {}, true);
 }
 
 {
@@ -203,4 +224,4 @@ function fail(reason) {
 }
 
 // We've reached the end of this test script
-console.log('All tests pass');
+console.log("All tests pass");
