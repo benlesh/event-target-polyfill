@@ -29,6 +29,27 @@ if (typeof Event !== "function") {
 }
 
 {
+  // Event should allow the proper options, but nothing weird
+  const event = new Event('test', { cancelable: true, bubbles: true, composed: true, garbage: 'lol' });
+
+  if (!'cancelable' in event || !event.cancelable) {
+    fail('Event.cancelable not properly set')
+  }
+
+  if (!'bubbles' in event || !event.bubbles) {
+    fail('Event.bubbles not properly set')
+  }
+
+  if (!'composed' in event || !event.composed) {
+    fail('Event.composed not properly set')
+  }
+
+  if ('garbage' in event) {
+    fail('Should not add arbitrary things to the event');
+  }
+}
+
+{
   // Should pass the proper stuff to the listener function
   const et = new EventTarget();
 

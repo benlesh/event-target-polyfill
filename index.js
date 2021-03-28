@@ -15,13 +15,9 @@ function isConstructor(fn) {
 if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
   root.Event = (function () {
     function Event(type, options) {
-      if (options) {
-        for (let key of options) {
-          if (options.hasOwnProperty(key)) {
-            this[key] = options[key];
-          }
-        }
-      }
+        this.bubbles = !!options && !!options.bubbles;
+        this.cancelable = !!options && !!options.cancelable;
+        this.composed = !!options && !!options.composed;
       this.type = type;
     }
 
