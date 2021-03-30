@@ -40,7 +40,7 @@ if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
     ) {
       if (arguments.length < 2) {
         throw new TypeError(
-          `TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only ${arguments.length} present.`
+          "TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only " + arguments.length + " present."
         );
       }
       const __listeners = this.__listeners;
@@ -62,7 +62,7 @@ if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
     ) {
       if (arguments.length < 2) {
         throw new TypeError(
-          `TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only ${arguments.length} present.`
+          "TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only " + arguments.length + " present."
         );
       }
       const __listeners = this.__listeners;
@@ -78,14 +78,17 @@ if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
     EventTarget.prototype.dispatchEvent = function (event) {
       if (!(event instanceof Event)) {
         throw new TypeError(
-          `Failed to execute 'dispatchEvent' on 'EventTarget': parameter 1 is not of type 'Event'.`
+          "Failed to execute 'dispatchEvent' on 'EventTarget': parameter 1 is not of type 'Event'."
         );
       }
       const type = event.type;
       const __listeners = this.__listeners;
       const listenersForType = __listeners.get(type);
       if (listenersForType) {
-        for (const [listener, options] of listenersForType.entries()) {
+        for (var listnerEntry of listenersForType.entries()) {
+          const listener = listnerEntry[0];
+          const options = listnerEntry[1];
+
           try {
             if (typeof listener === "function") {
               // Listener functions must be executed with the EventTarget as the `this` context.
