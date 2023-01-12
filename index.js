@@ -3,16 +3,25 @@ const root =
   (typeof self !== "undefined" && self) ||
   (typeof global !== "undefined" && global);
 
-function isConstructor(fn) {
+const shouldPolyfillEvent = (function() {
   try {
-    new fn();
+    new root.Event("");
   } catch (error) {
-    return false;
+    return true;
   }
-  return true;
-}
+  return false;
+})();
 
-if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
+const shouldPolyfillEventTarget = (function() {
+  try {
+    new root.EventTarget();
+  } catch (error) {
+    return true;
+  }
+  return false;
+})();
+
+if (shouldPolyfillEvent) {
   root.Event = (function () {
     function Event(type, options) {
         this.bubbles = !!options && !!options.bubbles;
@@ -25,7 +34,7 @@ if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
   })();
 }
 
-if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
+if (shouldPolyfillEventTarget) {
   root.EventTarget = (function () {
     function EventTarget() {
       this.__listeners = new Map();
