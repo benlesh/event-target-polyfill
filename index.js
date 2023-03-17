@@ -12,7 +12,7 @@ function isConstructor(fn, args) {
   return true;
 }
 
-if (typeof root.Event !== "function" || !isConstructor(root.Event, 'event')) {
+if (!isConstructor(root.Event, 'event')) {
   root.Event = (function () {
     function Event(type, options) {
         this.bubbles = !!options && !!options.bubbles;
@@ -25,7 +25,7 @@ if (typeof root.Event !== "function" || !isConstructor(root.Event, 'event')) {
   })();
 }
 
-if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event, 'event')) {
+if (!isConstructor(root.Event, 'event')) {
   root.EventTarget = (function () {
     function EventTarget() {
       this.__listeners = new Map();
@@ -76,7 +76,7 @@ if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event, 'event
     };
 
     EventTarget.prototype.dispatchEvent = function (event) {
-      if (!(event instanceof Event)) {
+      if (!(event instanceof root.Event)) {
         throw new TypeError(
           `Failed to execute 'dispatchEvent' on 'EventTarget': parameter 1 is not of type 'Event'.`
         );
