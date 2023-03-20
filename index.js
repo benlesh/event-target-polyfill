@@ -3,16 +3,18 @@ const root =
   (typeof self !== "undefined" && self) ||
   (typeof global !== "undefined" && global);
 
-function isConstructor(fn, args) {
+function isConstructor(fn) {
   try {
-    new fn(args);
+    new fn('');
   } catch (error) {
     return false;
   }
   return true;
 }
+const hasEvent = isConstructor(root.Event)
+const hasTarget = isConstructor(root.EventTarget)
 
-if (!isConstructor(root.Event, 'event')) {
+if (!hasEvent) {
   root.Event = (function () {
     function Event(type, options) {
         this.bubbles = !!options && !!options.bubbles;
@@ -25,7 +27,8 @@ if (!isConstructor(root.Event, 'event')) {
   })();
 }
 
-if (!isConstructor(root.Event, 'event')) {
+
+if (!hasEvent || !hasTarget) {
   root.EventTarget = (function () {
     function EventTarget() {
       this.__listeners = new Map();
