@@ -1,6 +1,10 @@
 [![npm version](https://badge.fury.io/js/event-target-polyfill.svg)](https://badge.fury.io/js/event-target-polyfill)
 ![Node.js CI](https://github.com/benlesh/event-target-polyfill/workflows/Node.js%20CI/badge.svg)
 
+# NO LONGER MAINTAINED
+
+I no longer have a reason to maintain this. Feel free to fork. If you you'd like to take it over, just DM me on Twitter and we'll work something out.
+
 # event-target-polyfill
 
 A polyfill for `EventTarget` (and `Event`), meant to run in older version of node or possibly IE 11, that has the most accurate set of characteristics of `EventTarget` that can be provided.
@@ -25,4 +29,3 @@ et.dispatchEvent(new Event('test'));
 ## Development
 
 This library has no dependencies. Even development dependencies. To test just run `npm test`. It runs a script, and if it finishes without error, the tests pass.
-
